@@ -31,6 +31,10 @@ export default class Store {
       return this._actions;
   }
 
+  get() {
+      return this._store.get.apply(this._store, arguments);
+  }
+
   on(params) {
       const events = Object.keys(params);
       for (let i = 0, n = events.length; i < n; i++) {
