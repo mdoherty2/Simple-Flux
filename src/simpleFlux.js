@@ -1,8 +1,8 @@
 import Dispatcher from './dispatcher';
 import Store from './store';
 
-export default class SimpleFlux {
-  constructor(entities) {
+class SimpleFlux {
+  init(entities) {
 
       // Create the dispatcher
       this._dispatcher = new Dispatcher();
@@ -35,3 +35,5 @@ export default class SimpleFlux {
       this._dispatcher.dispatch(action, data);
   }
 }
+
+export const simple = new SimpleFlux();

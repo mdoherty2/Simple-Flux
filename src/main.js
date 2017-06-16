@@ -1,5 +1,3 @@
-import Simple from './simpleFlux';
-
-const simple = new Simple(['state']);
+import {simple} from './simpleFlux';
 
 window.simple = simple;
