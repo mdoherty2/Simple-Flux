@@ -4,6 +4,8 @@ module.exports = {
     entry: "./src/simpleFlux.js",
     output: {
         path: __dirname + "/dist/",
+        libraryTarget: 'commonjs',
+        library: 'simpleFlux',
         filename: "simpleFlux.js"
     },
     plugins: [
