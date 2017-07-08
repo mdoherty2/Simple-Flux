@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: "./src/simpleFlux.js",
     output: {
-        path: __dirname + "/dist/",
+        path: __dirname,
         libraryTarget: 'commonjs',
         library: 'simpleFlux',
         filename: "simpleFlux.js"
