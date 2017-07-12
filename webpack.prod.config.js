@@ -4,7 +4,7 @@ module.exports = {
     entry: "./src/simpleFlux.js",
     output: {
         path: __dirname,
-        libraryTarget: 'commonjs',
+        libraryTarget: 'commonjs2',
         library: 'simpleFlux',
         filename: "simpleFlux.js"
     },
@@ -18,19 +18,19 @@ module.exports = {
             minimize: true,
             debug: false
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8: true,
-                keep_fnames: true
-            },
-            compress: {
-                screw_ie8: true
-            },
-            comments: false
-        })
+         new webpack.optimize.UglifyJsPlugin({
+             beautify: false,
+             mangle: {
+                 screw_ie8: true,
+                 keep_fnames: true
+             },
+             compress: {
+                 screw_ie8: true
+             },
+             comments: false
+         })
     ],
-    devtool: "source-map",
+    // devtool: "source-map",
     module: {
         rules: [
             {
