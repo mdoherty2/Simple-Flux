@@ -6,7 +6,7 @@ module.exports = {
         path: __dirname,
         libraryTarget: 'commonjs2',
         library: 'simpleFlux',
-        filename: "simpleFlux.js"
+        filename: "index.js"
     },
     plugins: [
         new webpack.DefinePlugin({
