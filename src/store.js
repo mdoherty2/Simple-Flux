@@ -79,7 +79,7 @@ export default class Store {
               switch (event) {
                   case 'add':
                   case 'update':
-                      params[event](this._dataset.get(props.items));
+                      params[event](this._store.get(props.items));
                       break;
                   case 'remove':
                       params[event](props.oldData);
@@ -116,6 +116,6 @@ export default class Store {
  * @return {StoreView}            The view of the store
  */
   createView(filterFunc) {
-      return new StoreView(this._dataset, filterFunc);
+      return new StoreView(this._store, filterFunc);
   }
 }
