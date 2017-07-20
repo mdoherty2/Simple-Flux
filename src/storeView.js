@@ -1,5 +1,5 @@
-import StoreView from './storeView';
 import vis from 'vis';
+
 /**
  * The different types of events this store supports
  * @type {Array}
@@ -7,50 +7,22 @@ import vis from 'vis';
  */
 const EVENTS = ['add', 'update', 'remove'];
 /**
- * Store
- * Flux store for managing part of the state of the application
+ * StoreView
+ * Flux store view to get a filterd view of a store
  * @class
  */
-export default class Store {
-  constructor(name) {
-      // Make sure name is upper case
-      const upperName = name.toUpperCase();
-
+export default class StoreView {
+  constructor(dataset, filterFunc) {
       /**
-       * A map of subscriptions to this
+       * A map of subscriptions to this store view
        * @type {Object}
        */
       this._subscriptions = {};
 
-      // create the vis dataset
-      this._store = new vis.DataSet();
-
-      // Create the action names to interact with this store
-      const addAction = 'ADD_' + upperName;
-      const updateAction = 'UPDATE_' + upperName;
-      const removeAction = 'REMOVE_' + upperName;
-
-      // Create the action callbacks to interact with the store
-      this._actions = {};
-      this._actions[addAction] = function(entity) {
-          this._store.add(entity);
-      }.bind(this);
-
-      this._actions[updateAction] = function(entity) {
-          this._store.update(entity);
-      }.bind(this);
-
-      this._actions[removeAction] = function(entity) {
-          this._store.remove(entity);
-      }.bind(this);
-  }
-
-/**
- * Getter for this stores actions
- * @return {Object} The actions of this store
- */
-  get actions() {
-      return this._actions;
+      // create the vis dataview
+      this._view = new vis.DataView(dataset, {
+          filter: filterFunc
+      });
   }
 
 /**
@@ -58,7 +30,7 @@ export default class Store {
  * @return {Array.<Object>} An array containing all of this store's items
  */
   get() {
-      return this._store.get.apply(this._store, arguments);
+      return this._view.get.apply(this._view, arguments);
   }
 
   /**
@@ -79,7 +51,7 @@ export default class Store {
               switch (event) {
                   case 'add':
                   case 'update':
-                      params[event](this._dataset.get(props.items));
+                      params[event](this._view.get(props.items));
                       break;
                   case 'remove':
                       params[event](props.oldData);
@@ -87,7 +59,7 @@ export default class Store {
                 }
             };
 
-          this._store.on(event, subscriptionFunction);
+          this._view.on(event, subscriptionFunction);
 
           this._subscriptions[subscription] = subscriptionFunction;
       }
@@ -104,18 +76,9 @@ export default class Store {
 
           if (this._subscriptions[subscription]) {
               const functionRef = this._subscriptions[subscription];
-              this._store.off(event, functionRef);
+              this._view.off(event, functionRef);
               delete this._subscriptions[subscription];
           }
       }
-  }
-
-/**
- * Creates a StoreView instance for filtered store viewing
- * @param  {function} filterFunc The function that will filter the store
- * @return {StoreView}            The view of the store
- */
-  createView(filterFunc) {
-      return new StoreView(this._dataset, filterFunc);
   }
 }

@@ -61,11 +61,11 @@ describe('Store Tests', function() {
                 add: callback,
                 update: callback,
                 remove: callback
-            });
+            }, 'test');
 
-            testStore._store.add({id: 1, data: 'test'});
-            testStore._store.update({id: 1, data: 'changed'});
-            testStore._store.remove({id: 1});
+            testStore._dataset.add({id: 1, data: 'test'});
+            testStore._dataset.update({id: 1, data: 'changed'});
+            testStore._dataset.remove({id: 1});
 
             actual = 3 === counter;
 
@@ -88,17 +88,13 @@ describe('Store Tests', function() {
                 add: callback,
                 update: callback,
                 remove: callback
-            });
+            }, 'test');
 
-            testStore.off({
-                add: callback,
-                update: callback,
-                remove: callback
-            });
+            testStore.off('test');
 
-            testStore._store.add({id: 1, data: 'test'});
-            testStore._store.update({id: 1, data: 'changed'});
-            testStore._store.remove({id: 1});
+            testStore._dataset.add({id: 1, data: 'test'});
+            testStore._dataset.update({id: 1, data: 'changed'});
+            testStore._dataset.remove({id: 1});
 
             actual = 0 === counter;
 
